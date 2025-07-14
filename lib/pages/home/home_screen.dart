@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import './widget/home_header.dart';
 import './widget/promo_card.dart';
 import './widget/product_card.dart';
+import './widget/category_list.dart';
+import './widget/top_dresses.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -29,17 +31,9 @@ class HomeScreen extends StatelessWidget {
                 children: const [
                   Text(
                     'New Arrival',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  Text(
-                    'View All',
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
+                  Text('View All', style: TextStyle(color: Colors.grey)),
                 ],
               ),
             ),
@@ -67,12 +61,16 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-                      ],
-                    ),
-                  ),
-                );
-              }
-            }
+            SizedBox(height: 20),
+            CategoryList(),
+            SizedBox(height: 20),
+            TopDresses(),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class WelcomeText extends StatelessWidget {
   const WelcomeText({super.key});
@@ -93,10 +91,7 @@ class WelcomeText extends StatelessWidget {
         SizedBox(height: 4),
         Text(
           "Our Fashions App",
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey,
-          ),
+          style: TextStyle(fontSize: 16, color: Colors.grey),
         ),
       ],
     );
@@ -168,14 +163,15 @@ class _PromoBannerSectionState extends State<PromoBannerSection> {
               width: _currentIndex == index ? 12 : 8,
               height: 8,
               decoration: BoxDecoration(
-                color: _currentIndex == index ? Colors.black : Colors.grey.shade400,
+                color: _currentIndex == index
+                    ? Colors.black
+                    : Colors.grey.shade400,
                 borderRadius: BorderRadius.circular(4),
               ),
             ),
           ),
         ),
       ],
-      
     );
   }
 }
