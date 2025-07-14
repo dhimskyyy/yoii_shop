@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class CategoryList extends StatefulWidget {
-  const CategoryList({super.key});
+  final Function(String) onSelected;
+  final String selected;
+
+  const CategoryList({
+    super.key,
+    required this.onSelected,
+    required this.selected,
+  });
 
   @override
   State<CategoryList> createState() => _CategoryListState();
@@ -9,7 +16,6 @@ class CategoryList extends StatefulWidget {
 
 class _CategoryListState extends State<CategoryList> {
   final List<String> categories = ['Dresses', 'Jackets', 'Jeans', 'Shoes'];
-  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +37,13 @@ class _CategoryListState extends State<CategoryList> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             itemCount: categories.length,
             itemBuilder: (context, index) {
-              final isSelected = index == selectedIndex;
+              final category = categories[index];
+              final isSelected = category == widget.selected;
               return Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: GestureDetector(
                   onTap: () {
-                    setState(() {
-                      selectedIndex = index;
-                    });
+                    widget.onSelected(category);
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -49,7 +54,7 @@ class _CategoryListState extends State<CategoryList> {
                       border: Border.all(color: Colors.black),
                     ),
                     child: Text(
-                      categories[index],
+                      category,
                       style: TextStyle(
                         color: isSelected ? Colors.white : Colors.black,
                         fontWeight: FontWeight.w500,

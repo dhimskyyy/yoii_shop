@@ -3,10 +3,23 @@ import './widget/home_header.dart';
 import './widget/promo_card.dart';
 import './widget/product_card.dart';
 import './widget/category_list.dart';
-import './widget/top_dresses.dart';
+import './widget/clothes.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String selectedCategory = 'Dresses';
+
+  void onCategorySelected(String category) {
+    setState(() {
+      selectedCategory = category;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,20 +28,20 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.only(bottom: 20),
-          children: const [
-            HomeHeader(),
-            Padding(
+          children: [
+            const HomeHeader(),
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: WelcomeText(),
             ),
-            SizedBox(height: 10),
-            PromoBannerSection(),
+            const SizedBox(height: 10),
+            const PromoBannerSection(),
             const SizedBox(height: 20),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
                     'New Arrival',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -37,34 +50,34 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-
-            SizedBox(height: 15),
-
-            // Horizontal scroll produk
-            SingleChildScrollView(
+            const SizedBox(height: 15),
+            const SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Row(
-                children: const [
+                children: [
                   ProductCard(
-                    imagePath: 'assets/images/shoes.png',
+                    imagePath: 'assets/images/offwhite.png',
                     name: 'Roller Rabbit',
                   ),
                   ProductCard(
-                    imagePath: 'assets/images/shoes.png',
+                    imagePath: 'assets/images/nike_shoes.png',
                     name: 'endless rose',
                   ),
                   ProductCard(
-                    imagePath: 'assets/images/shoes.png',
+                    imagePath: 'assets/images/bag_promo.png',
                     name: 'Nike T-Shirt',
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20),
-            CategoryList(),
-            SizedBox(height: 20),
-            TopDresses(),
+            const SizedBox(height: 20),
+            CategoryList(
+              onSelected: onCategorySelected,
+              selected: selectedCategory,
+            ),
+            const SizedBox(height: 20),
+            TopDresses(selectedCategory: selectedCategory),
           ],
         ),
       ),
